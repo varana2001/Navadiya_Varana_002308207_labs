@@ -14,14 +14,16 @@ import ui.AccountManager.AccountMngWorkAreaJPanel;
  * @author varananavadiya
  */
 public class MainJFrame extends javax.swing.JFrame {
+
     private AccountDirectory accountDirectory;
+
     /**
      * Creates new form MainJFrame
      */
     public MainJFrame() {
         initComponents();
-        this.accountDirectory=new AccountDirectory();
-        generateDemoData();
+        this.accountDirectory = new AccountDirectory();
+//        generateDemoData();
     }
 
     /**
@@ -87,10 +89,10 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void btnAccountMngActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccountMngActionPerformed
         // TODO add your handling code here:
-        AccountMngWorkAreaJPanel panel=new AccountMngWorkAreaJPanel(userProcessContainer,accountDirectory);
-        userProcessContainer.add("AccountMngWorkAreaJPanel",panel);
-        
-        CardLayout layout= (CardLayout)userProcessContainer.getLayout();
+        AccountMngWorkAreaJPanel panel = new AccountMngWorkAreaJPanel(userProcessContainer, accountDirectory);
+        userProcessContainer.add("AccountMngWorkAreaJPanel", panel);
+
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnAccountMngActionPerformed
 
@@ -135,18 +137,18 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel topJPanel;
     private javax.swing.JPanel userProcessContainer;
     // End of variables declaration//GEN-END:variables
-    private void generateDemoData(){
-    
-    Account newAccount=accountDirectory.addAccount();
-    newAccount.setAccountNumber("1102334567");
-    newAccount.setRoutingNumber("3456098783");
-    newAccount.setBankName("Bank of America");
-    newAccount.setBalance(200);
-    
-    Account anotherNewAccount=accountDirectory.addAccount();
-    anotherNewAccount.setAccountNumber("6107934217");
-    anotherNewAccount.setRoutingNumber("1256005235");
-    anotherNewAccount.setBankName("Chase");
-    anotherNewAccount.setBalance(1200);
-    }
+//    private void generateDemoData() {
+//
+//        Account newAccount = accountDirectory.addAccount();
+//        newAccount.setAccountNumber("1234567");
+//        newAccount.setRoutingNumber("7654321");
+//        newAccount.setBankName("Bank of America");
+//        newAccount.setBalance(200);
+//
+//        Account anotherNewAccount = accountDirectory.addAccount();
+//        anotherNewAccount.setAccountNumber("2345678");
+//        anotherNewAccount.setRoutingNumber("8765432");
+//        anotherNewAccount.setBankName("Chase");
+//        anotherNewAccount.setBalance(1200);
+//    }
 }

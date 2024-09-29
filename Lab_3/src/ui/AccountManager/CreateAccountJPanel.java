@@ -4,7 +4,10 @@
  */
 package ui.AccountManager;
 
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import model.Account;
 import model.AccountDirectory;
 
 /**
@@ -12,16 +15,17 @@ import model.AccountDirectory;
  * @author varananavadiya
  */
 public class CreateAccountJPanel extends javax.swing.JPanel {
+
     JPanel userProcessContainer;
     AccountDirectory accountDirectory;
 
     /**
      * Creates new form CreateAccountJPanel
      */
-    public CreateAccountJPanel(JPanel container,AccountDirectory directory) {
+    public CreateAccountJPanel(JPanel container, AccountDirectory directory) {
         initComponents();
-        userProcessContainer=container;
-        accountDirectory=directory;
+        userProcessContainer = container;
+        accountDirectory = directory;
     }
 
     /**
@@ -41,11 +45,16 @@ public class CreateAccountJPanel extends javax.swing.JPanel {
         lblBalance = new javax.swing.JLabel();
         txtRoutingNumber = new javax.swing.JTextField();
         txtAccountNumber = new javax.swing.JTextField();
-        txtBankName = new javax.swing.JTextField();
         txtBalance = new javax.swing.JTextField();
+        txtBankName = new javax.swing.JTextField();
         btnCreate = new javax.swing.JButton();
 
         btnBack.setText("<<< Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         lblTitle.setText("                                                                        Create Account");
 
@@ -73,19 +82,24 @@ public class CreateAccountJPanel extends javax.swing.JPanel {
             }
         });
 
-        txtBankName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBankNameActionPerformed(evt);
-            }
-        });
-
         txtBalance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBalanceActionPerformed(evt);
             }
         });
 
+        txtBankName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBankNameActionPerformed(evt);
+            }
+        });
+
         btnCreate.setText("Create Button");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -107,8 +121,8 @@ public class CreateAccountJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtRoutingNumber)
                     .addComponent(txtAccountNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                    .addComponent(txtBankName, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                     .addComponent(txtBalance, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                    .addComponent(txtBankName, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                     .addComponent(btnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -130,11 +144,11 @@ public class CreateAccountJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBankName)
-                    .addComponent(txtBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBankName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBalance)
-                    .addComponent(txtBankName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(51, 51, 51)
                 .addComponent(btnCreate)
                 .addContainerGap(340, Short.MAX_VALUE))
@@ -149,13 +163,102 @@ public class CreateAccountJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAccountNumberActionPerformed
 
+    private void txtBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBalanceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBalanceActionPerformed
+
     private void txtBankNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBankNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBankNameActionPerformed
 
-    private void txtBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBalanceActionPerformed
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtBalanceActionPerformed
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        // TODO add your handling code here:
+        int balance;
+        String routingNumber = txtRoutingNumber.getText();
+        String accountNumber = txtAccountNumber.getText();
+        String bankName = txtBankName.getText();
+
+        if (routingNumber.isBlank() || accountNumber.isBlank() || bankName.isBlank()) {
+            JOptionPane.showMessageDialog(this, "All fields are mandatory.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!routingNumber.matches("\\d{9}")) {
+            JOptionPane.showMessageDialog(this, "Routing number must be a 9-digit numeric value.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!accountNumber.matches("\\d{8,12}")) {
+            JOptionPane.showMessageDialog(this, "Account number must be a numeric value between 8 to 12 digits.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!bankName.matches("[a-zA-Z ]+")) {
+            JOptionPane.showMessageDialog(this, "Bank name should contain only alphabetic characters and spaces.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            balance = Integer.parseInt(txtBalance.getText());
+            if (balance < 0) {
+                JOptionPane.showMessageDialog(this, "Balance must be a positive number.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid numeric value for balance.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Check for existing account with the same details
+        for (Account existingAccount : accountDirectory.getAccounts()) {
+            if (existingAccount.getRoutingNumber().equals(routingNumber)
+                    && existingAccount.getAccountNumber().equals(accountNumber)
+                    && existingAccount.getBankName().equalsIgnoreCase(bankName)) {
+
+                JOptionPane.showMessageDialog(this, "An account with the same routing number, account number and bank name already exists.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+
+        // Check for existing accounts with the same routing number in the same bank
+        for (Account existingAccount : accountDirectory.getAccounts()) {
+            if (existingAccount.getRoutingNumber().equals(routingNumber)
+                    && existingAccount.getBankName().equalsIgnoreCase(bankName)) {
+                JOptionPane.showMessageDialog(this, "An account with this routing number already exists in the same bank.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+
+        // Check for existing accounts with the same account number in the same bank
+        for (Account existingAccount : accountDirectory.getAccounts()) {
+            if (existingAccount.getAccountNumber().equals(accountNumber)
+                    && existingAccount.getBankName().equalsIgnoreCase(bankName)) {
+                JOptionPane.showMessageDialog(this, "An account with this account number already exists in the same bank.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+
+        Account a = accountDirectory.addAccount();
+        a.setRoutingNumber(routingNumber);
+        a.setAccountNumber(accountNumber);
+        a.setBankName(bankName);
+        a.setBalance(balance);
+
+        JOptionPane.showMessageDialog(this, "Account Successfully created.", "Information", JOptionPane.INFORMATION_MESSAGE);
+
+        txtRoutingNumber.setText("");
+        txtAccountNumber.setText("");
+        txtBalance.setText("");
+        txtBankName.setText("");
+
+
+    }//GEN-LAST:event_btnCreateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
