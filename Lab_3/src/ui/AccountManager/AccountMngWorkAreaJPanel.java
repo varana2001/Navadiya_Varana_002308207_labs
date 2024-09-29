@@ -4,17 +4,24 @@
  */
 package ui.AccountManager;
 
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+import model.AccountDirectory;
+
 /**
  *
  * @author varananavadiya
  */
-public class AccountMngWorkArea extends javax.swing.JPanel {
-
+public class AccountMngWorkAreaJPanel extends javax.swing.JPanel {
+    JPanel userProcessContainer;
+    AccountDirectory accountDirectory;
     /**
      * Creates new form AccountMngWorkArea
      */
-    public AccountMngWorkArea() {
+    public AccountMngWorkAreaJPanel(JPanel container,AccountDirectory directory) {
         initComponents();
+        userProcessContainer=container;
+        accountDirectory=directory;
     }
 
     /**
@@ -30,6 +37,11 @@ public class AccountMngWorkArea extends javax.swing.JPanel {
         btnManageAccount = new javax.swing.JButton();
 
         btnCreateAccount.setText("Create Account");
+        btnCreateAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateAccountActionPerformed(evt);
+            }
+        });
 
         btnManageAccount.setText("Manage Account");
         btnManageAccount.addActionListener(new java.awt.event.ActionListener() {
@@ -47,22 +59,39 @@ public class AccountMngWorkArea extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnManageAccount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCreateAccount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(709, Short.MAX_VALUE))
+                .addContainerGap(739, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(168, 168, 168)
                 .addComponent(btnCreateAccount)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnManageAccount)
-                .addContainerGap(442, Short.MAX_VALUE))
+                .addContainerGap(545, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnManageAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageAccountActionPerformed
         // TODO add your handling code here:
+                // TODO add your handling code here:
+        ManageAccountsJPanel panel=new ManageAccountsJPanel(userProcessContainer,accountDirectory);
+        userProcessContainer.add("ManageAccountsJPanel",panel);
+        
+        CardLayout layout= (CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+        
     }//GEN-LAST:event_btnManageAccountActionPerformed
+
+    private void btnCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAccountActionPerformed
+        // TODO add your handling code here:
+               
+        CreateAccountJPanel panel=new CreateAccountJPanel(userProcessContainer,accountDirectory);
+        userProcessContainer.add("CreateAccountJPanel",panel);
+        
+        CardLayout layout= (CardLayout)userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnCreateAccountActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

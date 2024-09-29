@@ -4,17 +4,24 @@
  */
 package ui.AccountManager;
 
+import javax.swing.JPanel;
+import model.AccountDirectory;
+
 /**
  *
  * @author varananavadiya
  */
 public class CreateAccountJPanel extends javax.swing.JPanel {
+    JPanel userProcessContainer;
+    AccountDirectory accountDirectory;
 
     /**
      * Creates new form CreateAccountJPanel
      */
-    public CreateAccountJPanel() {
+    public CreateAccountJPanel(JPanel container,AccountDirectory directory) {
         initComponents();
+        userProcessContainer=container;
+        accountDirectory=directory;
     }
 
     /**
@@ -88,7 +95,7 @@ public class CreateAccountJPanel extends javax.swing.JPanel {
                 .addGap(30, 30, 30)
                 .addComponent(btnBack)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE))
+                .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(241, 241, 241)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -130,7 +137,7 @@ public class CreateAccountJPanel extends javax.swing.JPanel {
                     .addComponent(txtBankName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(51, 51, 51)
                 .addComponent(btnCreate)
-                .addContainerGap(197, Short.MAX_VALUE))
+                .addContainerGap(340, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
