@@ -192,8 +192,16 @@ public class LoginScreen extends javax.swing.JPanel {
             cmbSuppliers.setVisible(false);
             return;     
         }
+         
+         if(cmbRoles.getSelectedItem().getClass()==SupplierWorkAreaJPanel.class){
+             lblSupplier.setVisible(false);
+             cmbSuppliers.setVisible(true);
+         
+         }
+         
+         
     }
         
-         //To change body of generated methods, choose Tools | Templates.
+       
     
 }
