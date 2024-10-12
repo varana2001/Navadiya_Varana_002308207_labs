@@ -17,12 +17,13 @@ public class Product {
     private int price;
     private int id;
 
+    private ArrayList<Feature>features;
     private static int count = 0;
     
     public Product() {
         count++;
         id = count;
-        
+        features=new ArrayList<Feature>();
     }
 
     public String getName() {
