@@ -1,8 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+
+
 package ui;
 
 import java.awt.CardLayout;
@@ -11,12 +12,12 @@ import model.SupplierDirectory;
 
 /**
  *
- * @author varananavadiya
+ * @author  varananavadiya
  */
 public class MainJFrame extends javax.swing.JFrame {
-
-    SupplierDirectory supplierDirectory;
     
+    SupplierDirectory supplierDirectory;
+
     /**
      * Creates new form MainJFrame
      */
@@ -29,7 +30,7 @@ public class MainJFrame extends javax.swing.JFrame {
        
         
         setLoginScreen();
-    
+        
     }
 
     /**
@@ -96,19 +97,21 @@ public class MainJFrame extends javax.swing.JFrame {
         });
     }
 
-    private void setLoginScreen() {
-        LoginScreen ls=new LoginScreen(mainWorkArea,supplierDirectory);
-        mainWorkArea.add("Login Screen",ls);
-        CardLayout layout= (CardLayout) mainWorkArea.getLayout();
-        layout.next(mainWorkArea);
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel mainWorkArea;
     // End of variables declaration//GEN-END:variables
-     private void populateDemoData(){
-        Supplier bestBuy= supplierDirectory.addSupplier();
-        bestBuy.setSupplyName("Best Buy");
-     }
 
+    private void setLoginScreen() {
+        
+        LoginScreen ls = new LoginScreen(mainWorkArea, supplierDirectory);
+        mainWorkArea.add("LoginScreen",ls);
+        CardLayout layout = (CardLayout) mainWorkArea.getLayout();
+        layout.next(mainWorkArea);
+    }
+    
+    private void populateDemoData() {
+        
+        Supplier bestBuy = supplierDirectory.addSupplier();
+        bestBuy.setSupplyName("Best Buy");
+    }
 }

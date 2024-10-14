@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
 package model;
@@ -9,11 +9,12 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author varananavadiya
+ * @author  varananavadiya
  */
 public class Supplier {
     
     private String supplyName;
+    private String description;
     private ProductCatalog productCatalog;
     private ImageIcon logoImage;
 
@@ -39,6 +40,14 @@ public class Supplier {
 
     public ProductCatalog getProductCatalog() {
         return productCatalog;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
     
     
