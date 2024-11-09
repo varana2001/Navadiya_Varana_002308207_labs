@@ -11,11 +11,11 @@ import java.util.ArrayList;
  * @author varananavadiya
  */
 public class Order {
-    ArrayList<OrderItem> orderItemList;
-
-    public Order() {
-        this.orderItemList= new  ArrayList<OrderItem> ();
+     ArrayList<OrderItem> orderItemList;
+    
+    public Order(){
         
+        this.orderItemList = new ArrayList<OrderItem>();
     }
 
     public ArrayList<OrderItem> getOrderItemList() {
@@ -26,8 +26,23 @@ public class Order {
         this.orderItemList = orderItemList;
     }
     
-    public void addNewOrderItem(Product product, double price , int quantity){
-     OrderItem orderItem= new OrderItem(product,price,quantity);
-     orderItemList.add(orderItem);
+    public void addNewOrderItem(Product product, double price, int quantity){
+        
+        OrderItem orderItem = new OrderItem(product, price, quantity);
+        orderItemList.add(orderItem);                
+    }
+    
+    public void deleteItem(OrderItem item){
+        this.orderItemList.remove(item);
+    }
+    
+    public OrderItem findProduct(Product product){
+        
+        for(OrderItem oi : this.getOrderItemList()){
+            if(oi.getProduct().equals(product)){
+                return oi;
+            }
+        }
+        return null;
     }
 }

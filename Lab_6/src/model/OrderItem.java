@@ -43,4 +43,8 @@ public class OrderItem {
         this.quantity = quantity;
     }
     
+    public String toString(){
+        return this.product.toString();
+    }
+    
 }
