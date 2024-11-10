@@ -25,13 +25,14 @@ public class MainJFrame extends javax.swing.JFrame {
     Buisness buisness;
     SupplierDirectory supplierDirectory;
     MasterOrderList masterOrderList;
-    
+
     public MainJFrame() {
         initComponents();
-        buisness= new Buisness();
+        buisness = new Buisness();
         supplierDirectory = buisness.getSupplierDirectory();
-        masterOrderList= buisness.getMasterOrderList();
-        setSize(830,600);
+        masterOrderList = buisness.getMasterOrderList();
+        setSize(830, 600);
+
     }
 
     /**
@@ -51,7 +52,7 @@ public class MainJFrame extends javax.swing.JFrame {
         userProcessContainer = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Lab 5 Skeleton");
+        setTitle("Lab 6");
         setBackground(new java.awt.Color(240, 240, 240));
 
         splitPane.setDividerLocation(150);
@@ -124,14 +125,17 @@ public class MainJFrame extends javax.swing.JFrame {
             .addComponent(splitPane)
         );
 
+        getAccessibleContext().setAccessibleName("Lab 6");
+        getAccessibleContext().setAccessibleDescription("");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
 
         AdminWorkAreaJPanel awajp = new AdminWorkAreaJPanel(userProcessContainer, supplierDirectory);
-        userProcessContainer.add("AdminWorkAreaJPanel",awajp);
-        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        userProcessContainer.add("AdminWorkAreaJPanel", awajp);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
 
     }//GEN-LAST:event_btnAdminActionPerformed
@@ -140,14 +144,14 @@ public class MainJFrame extends javax.swing.JFrame {
 
         LoginSupplierJPanel ls = new LoginSupplierJPanel(userProcessContainer, supplierDirectory);
         userProcessContainer.add("LoginSupplierJPanel", ls);
-        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnSupplierActionPerformed
 
     private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
-        CustomerWorkAreaJPanel cwap = new CustomerWorkAreaJPanel(userProcessContainer, supplierDirectory,masterOrderList);
+        CustomerWorkAreaJPanel cwap = new CustomerWorkAreaJPanel(userProcessContainer, supplierDirectory, masterOrderList);
         userProcessContainer.add("CustomerWorkAreaJPanel", cwap);
-        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnCustomerActionPerformed
 

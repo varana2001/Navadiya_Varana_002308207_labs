@@ -138,21 +138,27 @@ public class CreateNewProductJPanel extends javax.swing.JPanel {
 
     }// </editor-fold>//GEN-END:initComponents
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        if (txtName.getText().isEmpty() || txtPrice.getText().isEmpty() || txtAvailability.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Product Name, Price, and Availability are required fields.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         double price=0.0;
         int quantity=0;
         try{
 
-        price= Double.parseDouble(txtPrice.getText());
-        quantity=Integer.parseInt(txtAvailability.getText());
+            price= Double.parseDouble(txtPrice.getText());
+            quantity=Integer.parseInt(txtAvailability.getText());
+            
+            if (price <= 0 || quantity <= 0) {
+                JOptionPane.showMessageDialog(null, "Price and Availability must be positive numbers.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
         
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, "Please check the price and quantity formats", "Info", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        
-        
-        
         
         Product p = supplier.getProductCatalog().addProduct();
         p.setProdName(txtName.getText());

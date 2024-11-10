@@ -351,12 +351,44 @@ public class BrowseProductsJPanel extends javax.swing.JPanel {
     private void btnModifyQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyQuantityActionPerformed
         // TODO add your handling code here:
  
-        
-    int selectedRowIndex= tblProductCatalog.getSelectedRow();
-        if(selectedRowIndex < 0){
-            JOptionPane.showMessageDialog(this,"Please slect the product first");
+ int selectedRowIndex = tblCart.getSelectedRow();
+    if (selectedRowIndex < 0) {
+        JOptionPane.showMessageDialog(this, "Please select an item in the cart to modify.", "Warning", JOptionPane.INFORMATION_MESSAGE);
+        return;
+    }
+
+    OrderItem selectedItem = (OrderItem) tblCart.getValueAt(selectedRowIndex, 0);
+    int newQuantity;
+    
+    try {
+        newQuantity = Integer.parseInt(txtNewQuantity.getText());
+        if (newQuantity <= 0) {
+            JOptionPane.showMessageDialog(this, "Quantity must be greater than zero.", "Warning", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Please enter a valid number for new quantity.", "Warning", JOptionPane.INFORMATION_MESSAGE);
+        return;
+    }
+
+    // Check if there's enough availability
+    int currentAvailable = selectedItem.getProduct().getAvail() + selectedItem.getQuantity();
+    if (newQuantity > currentAvailable) {
+        JOptionPane.showMessageDialog(this, "Not enough availability. Please reduce the quantity.", "Warning", JOptionPane.INFORMATION_MESSAGE);
+        return;
+    }
+
+    // Update the product's availability
+    selectedItem.getProduct().setAvail(currentAvailable - newQuantity);
+    selectedItem.setQuantity(newQuantity);
+
+    // Refresh tables
+    populateProductTable();
+    populateCartTable();
+
+    // Clear the new quantity field
+    txtNewQuantity.setText("");
+
     }//GEN-LAST:event_btnModifyQuantityActionPerformed
 
     private void btnSearchProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchProductActionPerformed
@@ -400,57 +432,59 @@ public class BrowseProductsJPanel extends javax.swing.JPanel {
 
     private void btnAddToCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToCartActionPerformed
         // TODO add your handling code here:
-        int selectedRowIndex = tblProductCatalog.getSelectedRow();
-        if (selectedRowIndex < 0) {
-            JOptionPane.showMessageDialog(this, "Please select the product first", "Warning", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
+    int selectedRowIndex = tblProductCatalog.getSelectedRow();
+    if (selectedRowIndex < 0) {
+        JOptionPane.showMessageDialog(this, "Please select the product first", "Warning", JOptionPane.INFORMATION_MESSAGE);
+        return;
+    }
 
-        Product product = (Product) tblProductCatalog.getValueAt(selectedRowIndex, 0);
+    Product product = (Product) tblProductCatalog.getValueAt(selectedRowIndex, 0);
 
-        double salesPrice = 0.0;
-        int quant = 0;
+    double salesPrice = 0.0;
+    int quant = 0;
 
-        try {
-            salesPrice = Double.parseDouble(txtSalesPrice.getText());
-            quant = (Integer) spnQuantity.getValue();
+    try {
+        salesPrice = Double.parseDouble(txtSalesPrice.getText());
+        quant = (Integer) spnQuantity.getValue();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Please check the price and quantity fields.", "Warning", JOptionPane.INFORMATION_MESSAGE);
+        return;
+    }
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Please check the price and quantity fields.", "Warning", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
+    if (salesPrice < product.getPrice()) {
+        JOptionPane.showMessageDialog(this, "Price should be more than it is set in the price.", "Warning", JOptionPane.INFORMATION_MESSAGE);
+        return;
+    }
 
-        if (salesPrice < product.getPrice()) {
-            JOptionPane.showMessageDialog(this, "Price should be more than it is set in the price.", "Warning", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
+    OrderItem item = currentOrder.findProduct(product);
 
-        OrderItem item = currentOrder.findProduct(product);
-
-        if (item == null) {
-
-            if (product.getAvail() >= quant) {
-
-                currentOrder.addNewOrderItem(product, salesPrice, quant);
-                product.setAvail(product.getAvail() - quant);
-            } else {
-                JOptionPane.showMessageDialog(this, "Please check product availability.", "Warning", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
+    if (item == null) {
+        if (product.getAvail() >= quant) {
+            currentOrder.addNewOrderItem(product, salesPrice, quant);
+            product.setAvail(product.getAvail() - quant);
         } else {
-            int oldQuant = item.getQuantity();
-            if (item.getProduct().getAvail() + oldQuant < quant) {
-                JOptionPane.showMessageDialog(this, "Please check product availability.", "Warning", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-
-            item.getProduct().setAvail(item.getProduct().getAvail() + oldQuant - quant);
-            item.setQuantity(quant);
-
+            JOptionPane.showMessageDialog(this, "Please check product availability.", "Warning", JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
-        populateProductTable();
-        populateCartTable();
-        
+    } else {
+        int oldQuant = item.getQuantity();
+        if (item.getProduct().getAvail() + oldQuant < quant) {
+            JOptionPane.showMessageDialog(this, "Please check product availability.", "Warning", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        item.getProduct().setAvail(item.getProduct().getAvail() + oldQuant - quant);
+        item.setQuantity(quant);
+    }
+
+    // Refresh product and cart tables
+    populateProductTable();
+    populateCartTable();
+
+    // Clear the sales price and quantity input fields
+    txtSalesPrice.setText("");
+    spnQuantity.setValue(0);
+
     }//GEN-LAST:event_btnAddToCartActionPerformed
 
     

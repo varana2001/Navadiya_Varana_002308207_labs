@@ -20,6 +20,7 @@ public class SearchResultJPanel extends javax.swing.JPanel {
         txtName.setText(p.getProdName());
         txtId.setText(String.valueOf(p.getModelNumber()));
         txtPrice.setText(String.valueOf(p.getPrice()));
+        txtAvailability1.setText(String.valueOf(p.getAvail()));
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -35,6 +36,8 @@ public class SearchResultJPanel extends javax.swing.JPanel {
         txtId = new javax.swing.JTextField();
         lblProductId = new javax.swing.JLabel();
         btnSave = new javax.swing.JButton();
+        lblProdAvail1 = new javax.swing.JLabel();
+        txtAvailability1 = new javax.swing.JTextField();
 
         setPreferredSize(new java.awt.Dimension(650, 600));
 
@@ -75,6 +78,9 @@ public class SearchResultJPanel extends javax.swing.JPanel {
             }
         });
 
+        lblProdAvail1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        lblProdAvail1.setText("Product Availability:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,18 +95,23 @@ public class SearchResultJPanel extends javax.swing.JPanel {
                             .addComponent(lblPrice, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(btnBack)))
+                        .addComponent(btnBack))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblProdAvail1)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTitle)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnUpdate)
                         .addGap(18, 18, 18)
-                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(169, Short.MAX_VALUE))
+                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtAvailability1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtPrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)))
+                .addContainerGap(138, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,7 +132,11 @@ public class SearchResultJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPrice)
                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAvailability1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblProdAvail1))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdate)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -137,6 +152,7 @@ public class SearchResultJPanel extends javax.swing.JPanel {
         //txtId.setEditable(true);
         txtName.setEditable(true);
         txtPrice.setEditable(true);
+        txtAvailability1.setEditable(true); // Enable editing for availability
         btnSave.setEnabled(true);
 }//GEN-LAST:event_btnUpdateActionPerformed
 
@@ -151,8 +167,41 @@ public class SearchResultJPanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        product.setPrice(Integer.parseInt(txtPrice.getText()));
+        // Validation for null or empty fields
+        if (txtName.getText().isEmpty() || txtPrice.getText().isEmpty() || txtAvailability1.getText().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(null, "All fields (Name, Price, Availability) are required.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        double price;
+        int availability;
+
+        // Validate Price and Availability as numeric values
+        try {
+            price = Double.parseDouble(txtPrice.getText());
+            availability = Integer.parseInt(txtAvailability1.getText());
+
+            // Ensure price and availability are positive values
+            if (price <= 0 || availability < 0) {
+                javax.swing.JOptionPane.showMessageDialog(null, "Price must be positive and Availability cannot be negative.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Please enter valid numeric values for Price and Availability.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Set the new values for the product
         product.setProdName(txtName.getText());
+        product.setPrice(price);
+        product.setAvail(availability);
+
+        // Confirmation message and disable editing
+        javax.swing.JOptionPane.showMessageDialog(this, "Product details updated successfully!", "Info", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        txtName.setEditable(false);
+        txtPrice.setEditable(false);
+        txtAvailability1.setEditable(false);
+        btnSave.setEnabled(false);
     }//GEN-LAST:event_btnSaveActionPerformed
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -160,9 +209,11 @@ public class SearchResultJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel lblPrice;
+    private javax.swing.JLabel lblProdAvail1;
     private javax.swing.JLabel lblProductId;
     private javax.swing.JLabel lblProductName;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JTextField txtAvailability1;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPrice;

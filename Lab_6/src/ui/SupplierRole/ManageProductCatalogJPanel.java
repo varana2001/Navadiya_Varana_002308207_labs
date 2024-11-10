@@ -158,7 +158,7 @@ public class ManageProductCatalogJPanel extends javax.swing.JPanel {
 
         int selectedRowIndex = tblProductCatalog.getSelectedRow();
         if (selectedRowIndex < 0) {
-            JOptionPane.showMessageDialog(null, "Pls select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Pls select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
         }
         
         Product p = (Product) tblProductCatalog.getValueAt(selectedRowIndex, 0);
