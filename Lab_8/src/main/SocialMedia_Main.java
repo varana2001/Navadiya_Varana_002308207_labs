@@ -92,8 +92,15 @@ public class SocialMedia_Main {
             
     }
     
+    //This method calls another method in the helper object
     private void runAnalysis(){
         // TODO
-        helper.getAverageLikesPerComments();
+        helper.getAverageLikesPerComments();//Q1
+        helper.getMaxLikeCommentsPost();//Q2
+        helper.getPostWithMostComments();//Q3
+        helper.getPassiveUsers();//Q4
+        helper.getPassiveCommentUsers();//Q5
+        helper.getPassiveAndActiveOverallUsers();//Q6 n Q7
+        
     }
 }
