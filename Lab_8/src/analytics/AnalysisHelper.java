@@ -9,14 +9,17 @@ package analytics;
  *
  * @author varananavadiya
  */
-
 import data.DataStore;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import model.Comment;
 import model.Post;
-
+import model.User;
 
 public class AnalysisHelper {
+
     //Find Average number of likes per comment.
     //TODO
     public void getAverageLikesPerComments() {
@@ -26,31 +29,32 @@ public class AnalysisHelper {
         for (Comment c : comments.values()) {
             likeNumber += c.getLikes();
         }
-        
+
         System.out.println("Average number of likes per comments: " + likeNumber / commentNumber);
-            
+
     }
-    
-        public void getMaxLikeCommentsPost() {    
+
+    public void getMaxLikeCommentsPost() {
         DataStore data = DataStore.getInstance();
         Comment commentWithMaxLikes = null;
-        
+
         for (Comment c : data.getComments().values()) {
             if (commentWithMaxLikes == null) {
-                commentWithMaxLikes = c; 
+                commentWithMaxLikes = c;
             }
             if (c.getLikes() > commentWithMaxLikes.getLikes()) {
                 commentWithMaxLikes = c;
             }
-        
+
         }
-        
+
         int postId = commentWithMaxLikes.getPostId();
-        
+
         System.out.println("Q2 Post with most likes per comment : " + data.getPosts().get(postId).getPostId());
-        
+
     }
-            public void getPostWithMostComments() {
+
+    public void getPostWithMostComments() {
         DataStore data = DataStore.getInstance();
         Post postWithMostComments = null;
         for (Post p : data.getPosts().values()) {
@@ -61,9 +65,34 @@ public class AnalysisHelper {
                 postWithMostComments = p;
             }
         }
-        
+
         System.out.println("Q3 Post with Most Comments " + postWithMostComments.getPostId());
-        
+
     }
-    
+
+    public void getPassiveUsers() {
+        DataStore data = DataStore.getInstance();
+
+        HashMap<Integer, Integer> postNumbers = new HashMap<Integer, Integer>();
+
+        for (Post p : data.getPosts().values()) {
+
+            int userId = p.getUserId();
+            if (postNumbers.containsKey(userId)) {
+                postNumbers.put(userId, postNumbers.get(userId) + 1);
+            } else {
+                postNumbers.put(userId, 1);
+            }
+        }
+
+        ArrayList<User> users = new ArrayList(data.getUsers().values());
+        //Check the methods of the collection class for Collections.sort
+        Collections.sort(users, new UserMapComparator(postNumbers));
+
+        System.out.println("Q4 The following users have the least posts : ");
+
+        for (int i = 0; i < 5; i++) {
+            System.out.println(users.get(i) + ", - post count: " + postNumbers.get(users.get(i).getId()));
+        }
+    }
 }

@@ -41,9 +41,9 @@ public class DataGenerator {
         rand = new Random();
         
         userIdsRange = 10;
-        commentIdsRange = 1000;
-        likeRange = 200;
-        postIdsRange = 40;
+        commentIdsRange = 2000;
+        likeRange = 400;
+        postIdsRange = 50;
         ratingRange = 300;
         
         generateCommentFile();
