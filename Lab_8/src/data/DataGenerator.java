@@ -155,8 +155,8 @@ public class DataGenerator {
         //the loop for orders
         while(userId < userIdsRange){
             //items for a order.
-            String firstName = "FirstName "+userId;
-            String lastName = "LastName "+userId;
+            String firstName = "firstName "+userId;
+            String lastName = "lastName "+userId;
             int rating = rand.nextInt(ratingRange);
             
             String column = userId+","+firstName+","+lastName+","+rating;

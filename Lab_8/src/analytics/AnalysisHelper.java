@@ -30,8 +30,8 @@ public class AnalysisHelper {
             likeNumber += c.getLikes();
         }
 
-        System.out.println("Q1 Average number of likes per comments: " + likeNumber / commentNumber);
-
+        System.out.println("Q1- Average number of likes per comments: " + likeNumber / commentNumber);
+        System.out.println(); 
     }
 
     public void getMaxLikeCommentsPost() {
@@ -50,8 +50,8 @@ public class AnalysisHelper {
 
         int postId = commentWithMaxLikes.getPostId();
 
-        System.out.println("Q2 Post with most likes per comment : " + data.getPosts().get(postId).getPostId());
-
+        System.out.println("Q2- Post with most likes per comment : " + data.getPosts().get(postId).getPostId());
+        System.out.println(); 
     }
 
     public void getPostWithMostComments() {
@@ -66,8 +66,8 @@ public class AnalysisHelper {
             }
         }
 
-        System.out.println("Q3 Post with Most Comments " + postWithMostComments.getPostId());
-
+        System.out.println("Q3- Post with Most Comments : " + postWithMostComments.getPostId());
+        System.out.println(); 
     }
 
     public void getPassiveUsers() {
@@ -89,11 +89,12 @@ public class AnalysisHelper {
         //Check the methods of the collection class for Collections.sort
         Collections.sort(users, new UserMapComparator(postNumbers));
 
-        System.out.println("Q4 The following users have the least posts : ");
+        System.out.println("Q4- The following users have the least posts : ");
 
         for (int i = 0; i < 5; i++) {
-            System.out.println(users.get(i) + ", - post count: " + postNumbers.get(users.get(i).getId()));
+            System.out.println(users.get(i) + ", - Post Count: " + postNumbers.get(users.get(i).getId()));
         }
+        System.out.println(); 
     }
 
     public void getPassiveCommentUsers() {
@@ -117,11 +118,12 @@ public class AnalysisHelper {
 
         Collections.sort(users, new UserMapComparator(commentNumbers));
 
-        System.out.println("Q5 The followiung users have the least comments : ");
+        System.out.println("Q5- The followiung users have the least comments : ");
 
         for (int i = 0; i < 5; i++) {
-            System.out.println(users.get(i) + ", - Comment count: " + commentNumbers.get(users.get(i).getId()));
+            System.out.println(users.get(i) + ", - Comment Count: " + commentNumbers.get(users.get(i).getId()));
         }
+        System.out.println(); 
     }
 
     public void getPassiveAndActiveOverallUsers() {
@@ -154,15 +156,16 @@ public class AnalysisHelper {
 
         Collections.sort(users, new UserMapComparator(overallNumbers));
 
-        System.out.println("Q6 The following users have overall been passive : ");
+        System.out.println("Q6- The following users have overall been passive : ");
         for (int i = 0; i < 5; i++) {
             System.out.println(users.get(i) + ", - Overall Count : " + overallNumbers.get(users.get(i).getId()));
         }
+        System.out.println(); 
 
-        System.out.println("Q7 The following users have overall been active : ");
+        System.out.println("Q7- The following users have overall been active : ");
 
         for (int i = users.size() - 1; i > users.size() - 6; i--) {
-            System.out.println(users.get(i) + ", - Overall count : " + overallNumbers.get(users.get(i).getId()));
+            System.out.println(users.get(i) + ", - Overall Count : " + overallNumbers.get(users.get(i).getId()));
         }
 
     }

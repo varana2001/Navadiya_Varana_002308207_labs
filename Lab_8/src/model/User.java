@@ -59,7 +59,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "id = " + id + ", firstName = " + firstName + ", lastName = " + lastName + ", no. of comments = " + comments.size() + '}';
+        return "User{" + "Id = " + id + ", FirstName = " + firstName + ", LastName = " + lastName + ", No. Of Comments = " + comments.size() + '}';
     }
     
     

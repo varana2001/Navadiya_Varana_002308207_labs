@@ -1,11 +1,11 @@
 User-Id,First-Name,Last-Name,Rating
-0,FirstName 0,LastName 0,38
-1,FirstName 1,LastName 1,232
-2,FirstName 2,LastName 2,123
-3,FirstName 3,LastName 3,164
-4,FirstName 4,LastName 4,290
-5,FirstName 5,LastName 5,179
-6,FirstName 6,LastName 6,88
-7,FirstName 7,LastName 7,135
-8,FirstName 8,LastName 8,45
-9,FirstName 9,LastName 9,260
+0,firstName 0,lastName 0,247
+1,firstName 1,lastName 1,89
+2,firstName 2,lastName 2,69
+3,firstName 3,lastName 3,37
+4,firstName 4,lastName 4,110
+5,firstName 5,lastName 5,58
+6,firstName 6,lastName 6,35
+7,firstName 7,lastName 7,137
+8,firstName 8,lastName 8,144
+9,firstName 9,lastName 9,113
