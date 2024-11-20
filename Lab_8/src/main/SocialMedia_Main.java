@@ -17,7 +17,7 @@ import model.User;
 
 /**
  *
- * @author harshalneelkamal
+ * @author varananavadiya
  */
 public class SocialMedia_Main {
 

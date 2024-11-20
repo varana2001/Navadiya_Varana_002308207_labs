@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author harshalneelkamal
+ * @author varananavadiya
  */
 public class Post {
     
